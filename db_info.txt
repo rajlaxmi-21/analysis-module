@@ -1,0 +1,23 @@
+INSTALL POSTGRES + POSTGIS
+
+permits (
+    permit_id VARCHAR(50) PRIMARY KEY,
+    geometry GEOMETRY(POLYGON, 4326),
+    issue_date DATE,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    permit_type VARCHAR(100),
+    authority VARCHAR(100),
+    project_name VARCHAR(255),
+    status VARCHAR(50)
+);
+
+detected_deforestation (
+    detection_id SERIAL PRIMARY KEY,
+    geometry GEOMETRY(POLYGON, 4326),
+    centroid GEOMETRY(POINT, 4326)
+        GENERATED ALWAYS AS (ST_Centroid(geometry)) STORED,
+    detected_at DATE,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+Also in analysis module change the connection code to connect to your database installed in your system.
